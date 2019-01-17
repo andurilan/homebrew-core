@@ -96,8 +96,7 @@ class Libguestfs < Formula
 
   # Bindings & tools
   depends_on "libvirt" => :optional
-  option "with-python", "Build with Python bindings"
-  depends_on :python => :optional
+  
   option "with-java", "Build with Java bindings"
   depends_on :java => :optional
   option "with-perl", "Build with Perl bindings"
@@ -162,13 +161,6 @@ class Libguestfs < Formula
       args << "--enable-golang"
     else
       args << "--disable-golang"
-    end
-
-    if build.with? "python"
-      ENV.prepend_path "PKG_CONFIG_PATH", `python-config --prefix`.chomp + "/lib/pkgconfig"
-      args << "--with-python-installdir=#{lib}/python2.7/site-packages"
-    else
-      args << "--disable-python"
     end
 
     if build.with? "ruby"
